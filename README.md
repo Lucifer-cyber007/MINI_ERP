@@ -1,218 +1,283 @@
-🧾 Mini ERP – Sales & Inventory Management System
+# 🏢 Mini ERP - Sales & Inventory Management System
 
-A Mini ERP backend system inspired by Odoo-style architecture, built using FastAPI, PostgreSQL, and SQLAlchemy.
-This project demonstrates real ERP workflows, not just CRUD operations.
+A complete, production-ready ERP system built with **FastAPI**, **PostgreSQL**, **React**, and **SQLAlchemy ORM**, demonstrating real-world business workflows similar to **Odoo**.
 
-🚀 Project Overview
+![Dashboard](https://img.shields.io/badge/Status-Production%20Ready-success)
+![React](https://img.shields.io/badge/React-18.3-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Latest-green)
 
-This system implements core ERP modules:
+---
 
-Product Management
+## 📌 Project Overview
 
-Customer Management
+This Mini ERP system implements core business modules found in enterprise resource planning software:
 
-Sales Order Management
+- **Product Management** - Manage product catalog with pricing and inventory
+- **Customer Management** - Maintain customer records
+- **Sales Order Management** - Create and manage sales orders with workflow states
+- **Inventory Management** - Automatic stock updates based on order confirmations
+- **Dashboard Analytics** - Real-time metrics and low stock alerts
 
-Inventory Management (workflow-driven)
+### 🎯 Key Features
 
-The backend follows clean layered architecture with clear separation between:
+✅ **Modern React Frontend** - Professional UI with sidebar navigation and responsive design  
+✅ **ORM-Driven Architecture** - SQLAlchemy models with relationships and cascades  
+✅ **Business Workflow Engine** - Order state transitions (DRAFT → CONFIRMED → CANCELLED)  
+✅ **Inventory Automation** - Stock reduces on confirmation, restores on cancellation  
+✅ **Data Validation** - Prevents negative stock and invalid state transitions  
+✅ **Clean Architecture** - Separation of concerns (models, schemas, services, routes)  
+✅ **RESTful API** - Proper HTTP methods and status codes  
+✅ **Real-time Updates** - Dynamic UI with instant feedback
 
-Models (ORM)
+---
 
-Schemas (validation)
+## 🚀 Quick Start
 
-Services (business logic)
+### Prerequisites
 
-Routes (API layer)
+- Python 3.10+
+- Node.js 18+
+- PostgreSQL 12+
+- Git
 
-Inventory updates are strictly controlled by order workflow states, similar to real ERP systems like Odoo.
+### Backend Setup
 
-🧠 Key ERP Concepts Implemented
-
-ORM-driven relational data modeling
-
-Workflow-based order lifecycle:
-
-DRAFT → CONFIRMED → CANCELLED
-
-Inventory updates only on confirmation
-
-Stock restoration on cancellation
-
-Prevention of negative stock
-
-Business logic isolated in service layer
-
-🛠 Tech Stack
-
-Backend: FastAPI (Python 3.10+)
-
-Database: PostgreSQL
-
-ORM: SQLAlchemy
-
-Frontend: HTML + Vanilla JavaScript
-
-API Style: REST
-
-Environment: Virtualenv
-
-Version Control: Git + GitHub
-
-📁 Project Structure
-mini_erp/
-│
-├── app/
-│   ├── main.py
-│   ├── database.py
-│   │
-│   ├── models/
-│   ├── schemas/
-│   ├── services/
-│   ├── routes/
-│   └── utils/
-│
-├── frontend/
-│   ├── index.html
-│   └── app.js
-│
-├── requirements.txt
-├── README.md
-└── .gitignore
-
-⚙️ Setup Instructions
-1️⃣ Clone the repository
+```bash
+# Clone repository
 git clone https://github.com/Lucifer-cyber007/MINI_ERP.git
 cd MINI_ERP
 
-2️⃣ Create and activate virtual environment
+# Create virtual environment
 python -m venv venv
-venv\Scripts\activate
+venv\Scripts\activate  # Windows
+# source venv/bin/activate  # Linux/Mac
 
-3️⃣ Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-4️⃣ PostgreSQL setup
+# Configure database
+# Create .env file with:
+# DATABASE_URL=postgresql://username:password@localhost:5432/mini_erp
 
-Create a database:
+# Run backend
+uvicorn app.main:app --reload
+```
 
-CREATE DATABASE mini_erp;
+Backend will be available at `http://localhost:8000`  
+API Documentation: `http://localhost:8000/docs`
 
+### Frontend Setup
 
-Create a .env file in project root:
+```bash
+# Navigate to frontend
+cd frontend
 
-DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/mini_erp
+# Install dependencies
+npm install
 
-5️⃣ Run the backend
+# Start development server
+npm run dev
+```
+
+Frontend will be available at `http://localhost:5173`
+
+---
+
+## 🎨 Screenshots
+
+### Dashboard Overview
+- Metrics cards showing total products, customers, orders, and low stock alerts
+- Recent sales orders table with status badges
+- Inventory alerts section
+
+### Sales Orders
+- Create new orders with multiple product lines
+- Confirm orders to reduce inventory
+- Cancel orders to restore stock
+- Real-time total calculation
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────┐
+│      Frontend (React + Vite)        │
+├─────────────────────────────────────┤
+│       API Layer (FastAPI)           │
+├─────────────────────────────────────┤
+│    Business Logic (Services)        │
+├─────────────────────────────────────┤
+│      ORM Layer (SQLAlchemy)         │
+├─────────────────────────────────────┤
+│      Database (PostgreSQL)          │
+└─────────────────────────────────────┘
+```
+
+---
+
+## 📁 Project Structure
+
+```
+mini_erp/
+├── app/                           # Backend
+│   ├── main.py                    # FastAPI app + CORS
+│   ├── database.py                # DB connection
+│   ├── models/                    # SQLAlchemy models
+│   ├── schemas/                   # Pydantic schemas
+│   ├── services/                  # Business logic
+│   ├── routes/                    # API endpoints
+│   └── utils/                     # Utilities
+├── frontend/                      # React Frontend
+│   ├── src/
+│   │   ├── components/            # Reusable components
+│   │   ├── pages/                 # Page components
+│   │   ├── services/              # API integration
+│   │   ├── App.jsx                # Main app
+│   │   └── main.jsx               # Entry point
+│   ├── package.json
+│   └── vite.config.js             # Vite config
+├── requirements.txt
+├── .env
+└── README.md
+```
+
+---
+
+## 🔌 API Endpoints
+
+### Products
+- `POST /products/` - Create product
+- `GET /products/` - List all products
+
+### Customers
+- `POST /customers/` - Create customer
+- `GET /customers/` - List all customers
+
+### Sales Orders
+- `POST /orders/` - Create order (DRAFT)
+- `GET /orders/` - List all orders
+- `GET /orders/{id}` - Get order details
+- `POST /orders/{id}/confirm` - Confirm order (reduce stock)
+- `POST /orders/{id}/cancel` - Cancel order (restore stock)
+
+---
+
+## 🔄 Business Workflow
+
+### Order Lifecycle
+
+```
+┌─────────┐    confirm    ┌───────────┐    cancel    ┌───────────┐
+│  DRAFT  │ ───────────► │ CONFIRMED │ ──────────► │ CANCELLED │
+└─────────┘               └───────────┘              └───────────┘
+     │                          │                          │
+     └─ No stock change         └─ Stock reduced          └─ Stock restored
+```
+
+---
+
+## 🛠️ Technologies Used
+
+### Backend
+- **FastAPI** - Modern, fast web framework
+- **SQLAlchemy** - SQL toolkit and ORM
+- **PostgreSQL** - Production database
+- **Pydantic** - Data validation
+- **Uvicorn** - ASGI server
+
+### Frontend
+- **React 18** - UI library
+- **Vite** - Build tool
+- **React Router** - Navigation
+- **Axios** - HTTP client
+- **Lucide React** - Icons
+
+---
+
+## 🧪 Testing
+
+### Manual Testing Flow
+
+1. **Start Backend**: `uvicorn app.main:app --reload`
+2. **Start Frontend**: `cd frontend && npm run dev`
+3. **Create Product**: Add "Laptop" with price $999, stock 10
+4. **Create Customer**: Add "John Doe"
+5. **Create Order**: Select customer, add 3 laptops
+6. **Confirm Order**: Stock reduces to 7
+7. **Cancel Order**: Stock restores to 10
+
+---
+
+## 🎓 Interview Talking Points
+
+### How This Relates to Odoo
+
+| Aspect | This Project | Odoo |
+|--------|-------------|------|
+| **ORM** | SQLAlchemy declarative models | Odoo ORM with Model classes |
+| **Workflows** | Order state machine | Odoo's workflow engine |
+| **Business Logic** | Service layer | Model methods with decorators |
+| **API** | FastAPI REST | XML-RPC / JSON-RPC |
+| **Frontend** | React SPA | Odoo Web Client |
+
+---
+
+## 📝 Development
+
+### Running in Development
+
+```bash
+# Backend (Terminal 1)
+cd mini_erp
+venv\Scripts\activate
 uvicorn app.main:app --reload
 
+# Frontend (Terminal 2)
+cd mini_erp/frontend
+npm run dev
+```
 
-Open API docs:
+### Building for Production
 
-http://127.0.0.1:8000/docs
+```bash
+# Frontend
+cd frontend
+npm run build
 
-6️⃣ Run the frontend
+# Serve built files
+npm run preview
+```
 
-Open:
+---
 
-frontend/index.html
+## 🤝 Contributing
 
+This is a portfolio project, but suggestions are welcome!
 
-in your browser (backend must be running).
+---
 
-📌 API Endpoints (Implemented)
-Products
+## 📄 License
 
-POST /products
+This project is open-source and available for educational purposes.
 
-GET /products
+---
 
-Customers
+## 👤 Author
 
-POST /customers
+**Lucifer-cyber007**  
+Aspiring Odoo Software Developer
 
-GET /customers
+*This project demonstrates understanding of ERP systems, ORM-based development, and modern full-stack architecture.*
 
-Sales Orders
+---
 
-POST /orders
+## 🔗 Links
 
-POST /orders/{id}/confirm
+- **Repository**: https://github.com/Lucifer-cyber007/MINI_ERP
+- **API Docs**: http://localhost:8000/docs (when running)
+- **Frontend**: http://localhost:5173 (when running)
 
-POST /orders/{id}/cancel
+---
 
-🔄 ERP Workflow Explained
-🟡 Create Order
-
-Order is created in DRAFT
-
-Inventory is NOT affected
-
-🟢 Confirm Order
-
-Stock is validated
-
-Inventory is reduced
-
-Status becomes CONFIRMED
-
-🔴 Cancel Order
-
-Only allowed for confirmed orders
-
-Inventory is restored
-
-Status becomes CANCELLED
-
-🧪 Test Scenarios
-
-✔ Confirm order with sufficient stock
-✔ Prevent confirmation with insufficient stock
-✔ Restore stock on cancellation
-✔ Maintain complete order history
-
-All scenarios are tested via Swagger UI and frontend.
-
-🧠 Interview Talking Points
-
-ERP-style workflow control
-
-ORM-driven business logic
-
-Service-layer architecture
-
-Inventory consistency guarantees
-
-Odoo-inspired design principles
-
-👤 Author
-
-Aditya
-Aspiring Odoo Software Development Intern
-GitHub: https://github.com/Lucifer-cyber007
-
-🏁 Final Notes
-
-This project is designed to be:
-
-Resume-ready
-
-Interview-explainable
-
-Extendable to full ERP systems (invoicing, warehouses, reporting)
-
-✅ WHAT YOU SHOULD DO NOW (IMPORTANT)
-
-1️⃣ Replace your README.md with the above
-2️⃣ Commit & push:
-
-git add README.md
-git commit -m "Fix README: correct setup, APIs, and ERP workflow explanation"
-git push
-
-🎯 After this, your repo is:
-
-✔ Technically correct
-✔ Interview-ready
-✔ Odoo-aligned
-✔ Professionally documented
+**Built with ❤️ for learning and showcasing ERP development skills**
