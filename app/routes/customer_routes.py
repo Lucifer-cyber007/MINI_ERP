@@ -9,7 +9,7 @@ router = APIRouter(prefix="/customers", tags=["Customers"])
 
 @router.post("/", response_model=CustomerResponse)
 def create_customer(customer: CustomerCreate, db: Session = Depends(get_db)):
-    new_customer = Customer(**customer.dict())
+    new_customer = Customer(**customer.model_dump())
     db.add(new_customer)
     db.commit()
     db.refresh(new_customer)
