@@ -265,7 +265,7 @@ This project is open-source and available for educational purposes.
 
 ## 👤 Author
 
-**Lucifer-cyber007**  
+**Aditya Sharma**  
 Aspiring Odoo Software Developer
 
 *This project demonstrates understanding of ERP systems, ORM-based development, and modern full-stack architecture.*
