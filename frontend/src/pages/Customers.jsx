@@ -33,8 +33,11 @@ const Customers = () => {
             await customersAPI.create(formData);
             setFormData({ name: '', email: '', phone: '' });
             loadCustomers();
+            alert('Customer added successfully!');
         } catch (error) {
-            alert('Failed to create customer');
+            // Display the specific error message from the backend
+            const errorMessage = error.response?.data?.detail || 'Failed to create customer';
+            alert(errorMessage);
         }
     };
 
